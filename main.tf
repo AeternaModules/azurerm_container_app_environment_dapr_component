@@ -10,7 +10,7 @@ resource "azurerm_container_app_environment_dapr_component" "container_app_envir
   scopes                       = each.value.scopes
 
   dynamic "metadata" {
-    for_each = each.value.metadata != null ? [each.value.metadata] : []
+    for_each = each.value.metadata != null ? each.value.metadata : []
     content {
       name        = metadata.value.name
       secret_name = metadata.value.secret_name

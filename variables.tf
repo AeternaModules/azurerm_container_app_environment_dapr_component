@@ -26,14 +26,14 @@ EOT
     container_app_environment_id = string
     name                         = string
     version                      = string
-    ignore_errors                = optional(bool, false)
-    init_timeout                 = optional(string, "5s")
+    ignore_errors                = optional(bool)   # Default: false
+    init_timeout                 = optional(string) # Default: "5s"
     scopes                       = optional(list(string))
-    metadata = optional(object({
+    metadata = optional(list(object({
       name        = string
       secret_name = optional(string)
       value       = optional(string)
-    }))
+    })))
     secret = optional(object({
       identity            = optional(string)
       key_vault_secret_id = optional(string)
@@ -41,5 +41,13 @@ EOT
       value               = optional(string)
     }))
   }))
+  validation {
+    condition = alltrue([
+      for k, v in var.container_app_environment_dapr_components : (
+        v.metadata == null || (length(v.metadata) >= 1)
+      )
+    ])
+    error_message = "Each metadata list must contain at least 1 items"
+  }
 }
 
