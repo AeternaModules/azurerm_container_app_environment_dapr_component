@@ -1,3 +1,7 @@
+output "container_app_environment_dapr_components_id" {
+  description = "Map of id values across all container_app_environment_dapr_components, keyed the same as var.container_app_environment_dapr_components"
+  value       = { for k, v in azurerm_container_app_environment_dapr_component.container_app_environment_dapr_components : k => v.id }
+}
 output "container_app_environment_dapr_components_component_type" {
   description = "Map of component_type values across all container_app_environment_dapr_components, keyed the same as var.container_app_environment_dapr_components"
   value       = { for k, v in azurerm_container_app_environment_dapr_component.container_app_environment_dapr_components : k => v.component_type }
