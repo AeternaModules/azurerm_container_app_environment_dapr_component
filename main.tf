@@ -19,7 +19,7 @@ resource "azurerm_container_app_environment_dapr_component" "container_app_envir
   }
 
   dynamic "secret" {
-    for_each = each.value.secret != null ? [each.value.secret] : []
+    for_each = each.value.secret != null ? each.value.secret : []
     content {
       identity            = secret.value.identity
       key_vault_secret_id = secret.value.key_vault_secret_id

@@ -34,12 +34,12 @@ EOT
       secret_name = optional(string)
       value       = optional(string)
     })))
-    secret = optional(object({
+    secret = optional(list(object({
       identity            = optional(string)
       key_vault_secret_id = optional(string)
       name                = string
       value               = optional(string)
-    }))
+    })))
   }))
   validation {
     condition = alltrue([
