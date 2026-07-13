@@ -26,8 +26,8 @@ EOT
     container_app_environment_id = string
     name                         = string
     version                      = string
-    ignore_errors                = optional(bool)   # Default: false
-    init_timeout                 = optional(string) # Default: "5s"
+    ignore_errors                = optional(bool)
+    init_timeout                 = optional(string)
     scopes                       = optional(list(string))
     metadata = optional(list(object({
       name        = string
@@ -41,13 +41,5 @@ EOT
       value               = optional(string)
     })))
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.container_app_environment_dapr_components : (
-        v.metadata == null || (length(v.metadata) >= 1)
-      )
-    ])
-    error_message = "Each metadata list must contain at least 1 items"
-  }
 }
 
